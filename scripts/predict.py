@@ -15,7 +15,7 @@ def main():
     captioner_service = ImageCaptionerService(model, tokenizer, feature_extractor)
 
     # Step 3: Predict on new images
-    image_path = "path_to_image.jpg"  # Change to your image path
+    image_path = "69152837.jpg"  # Change to your image path
     caption = captioner_service.predict(image_path)
     logger.info(f"Generated Caption: {caption}")
 
