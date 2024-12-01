@@ -18,7 +18,7 @@ def main():
     captioner_service = ImageCaptionerService(model, tokenizer, feature_extractor)
 
     # Step 3: Predict on new images
-    image_path = "69152837.jpg"  # Change to your image path
+    image_path = "https://images.unsplash.com/photo-1529778873920-4da4926a72c2?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"  # Change to your image path
     caption = captioner_service.predict(image_path)
     logger.info(f"Generated Caption: {caption}")
 
