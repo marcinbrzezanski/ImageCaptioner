@@ -5,8 +5,8 @@ class Trainer:
         self.args = Seq2SeqTrainingArguments(
             predict_with_generate=True,
             evaluation_strategy='epoch',
-            per_device_train_batch_size=4,
-            per_device_eval_batch_size=4,
+            per_device_train_batch_size=64,
+            per_device_eval_batch_size=64,
             output_dir=output_dir
         )
         self.trainer = Seq2SeqTrainer(
