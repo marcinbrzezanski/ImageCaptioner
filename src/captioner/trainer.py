@@ -20,3 +20,5 @@ class Trainer:
 
     def train(self):
         self.trainer.train()
+        self.trainer.save_model()
+        self.self.trainer.tokenizer.save_pretrained(self.args.output_dir)
