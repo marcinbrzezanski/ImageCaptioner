@@ -19,7 +19,6 @@ def main():
     # Step 2: Load and preprocess dataset
     data_preprocessor = DataPreprocessor(tokenizer, feature_extractor)
     def preprocess_func(example):
-        logger.info(example)
         model_inputs = {}
         model_inputs['labels'] = data_preprocessor.tokenize(example["txt"], max_len=128)
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['jpg'])
