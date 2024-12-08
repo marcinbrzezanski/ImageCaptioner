@@ -1,13 +1,14 @@
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments, default_data_collator
 
 class Trainer:
-    def __init__(self, model, tokenizer, train_dataset, eval_dataset, output_dir):
+    def __init__(self, model, tokenizer, num_train_epochs, train_dataset, eval_dataset, output_dir):
         self.output_dir = output_dir
         self.args = Seq2SeqTrainingArguments(
             predict_with_generate=True,
             eval_strategy='epoch',
-            per_device_train_batch_size=16,
-            per_device_eval_batch_size=16,
+            num_train_epochs=num_train_epochs,
+            per_device_train_batch_size=64,
+            per_device_eval_batch_size=64,
             output_dir=output_dir
         )
         self.trainer = Seq2SeqTrainer(
@@ -23,4 +24,3 @@ class Trainer:
         self.trainer.train()
         self.trainer.save_model()
         self.trainer.tokenizer.save_pretrained(self.output_dir)
-        self.image_processor.save_pretrained(self.output_dir)
