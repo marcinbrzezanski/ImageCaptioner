@@ -2,6 +2,7 @@ from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments, default_data_
 
 class Trainer:
     def __init__(self, model, tokenizer, train_dataset, eval_dataset, output_dir):
+        self.output_dir = output_dir
         self.args = Seq2SeqTrainingArguments(
             predict_with_generate=True,
             evaluation_strategy='epoch',

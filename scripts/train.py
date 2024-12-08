@@ -25,7 +25,7 @@ def main():
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['jpg'])
         return model_inputs
     dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "test",preprocess_func)
+    train_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "train",preprocess_func)
     eval_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "test",preprocess_func)
     logger.info(train_dataset)
     # Step 3: Initialize trainer
