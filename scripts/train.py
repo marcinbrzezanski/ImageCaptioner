@@ -12,7 +12,7 @@ def main():
 
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
-    decoder_model = "gpt2"
+    decoder_model = "HuggingFaceTB/SmolLM2-135M"
     model_obj = ImageCaptionerModel(encoder_model, decoder_model)
     model, tokenizer, feature_extractor = model_obj.get_model_components()
 
@@ -24,9 +24,9 @@ def main():
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['jpg'])
         return model_inputs
     dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "train",preprocess_func)
+    train_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "test",preprocess_func)
     eval_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "test",preprocess_func)
-    num_epochs = 5
+    num_epochs = 3
     # Step 3: Initialize trainer
     trainer = Trainer(model, feature_extractor, num_epochs, train_dataset, eval_dataset, output_dir="./output")
     trainer.train()
