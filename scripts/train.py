@@ -27,7 +27,6 @@ def main():
     dataset_manager = DatasetManager()
     train_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "train",preprocess_func)
     eval_dataset = dataset_manager.load_dataset("clip-benchmark/wds_flickr8k", "test",preprocess_func)
-    logger.info(train_dataset)
     # Step 3: Initialize trainer
     trainer = Trainer(model, feature_extractor, train_dataset, eval_dataset, output_dir="./output")
     trainer.train()

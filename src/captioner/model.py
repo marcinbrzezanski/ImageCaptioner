@@ -1,10 +1,10 @@
-from transformers import VisionEncoderDecoderModel, AutoTokenizer, AutoFeatureExtractor
+from transformers import VisionEncoderDecoderModel, AutoTokenizer, ViTImageProcessor
 
 class ImageCaptionerModel:
     def __init__(self, encoder_model: str, decoder_model: str):
         self.model = VisionEncoderDecoderModel.from_encoder_decoder_pretrained(encoder_model, decoder_model)
         self.tokenizer = AutoTokenizer.from_pretrained(decoder_model)
-        self.feature_extractor = AutoFeatureExtractor.from_pretrained(encoder_model)
+        self.feature_extractor = ViTImageProcessor.from_pretrained(encoder_model)
 
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.model.config.eos_token_id = self.tokenizer.eos_token_id
