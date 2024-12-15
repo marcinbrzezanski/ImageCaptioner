@@ -7,8 +7,8 @@ class Trainer:
             predict_with_generate=True,
             eval_strategy='epoch',
             num_train_epochs=num_train_epochs,
-            per_device_train_batch_size=32,
-            per_device_eval_batch_size=32,
+            per_device_train_batch_size=16,
+            per_device_eval_batch_size=16,
             output_dir=output_dir
         )
         self.trainer = Seq2SeqTrainer(
