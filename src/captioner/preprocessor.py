@@ -25,5 +25,4 @@ class DataPreprocessor:
                 logger.error(f"Error loading image {image}: {e}")
                 to_keep.append(False)
         pixel_values = self.feature_extractor(images=images, return_tensors="pt").pixel_values
-        logger.info(pixel_values)
         return pixel_values
