@@ -12,7 +12,7 @@ def main():
 
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
-    decoder_model = "HuggingFaceTB/SmolLM2-135M"
+    decoder_model = "sdadas/polish-gpt2-small"
     model_obj = ImageCaptionerModel(encoder_model, decoder_model)
     model, tokenizer, feature_extractor = model_obj.get_model_components()
 
