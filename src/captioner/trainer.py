@@ -30,7 +30,6 @@ class Trainer:
         # Ensure multi-GPU support is enabled with the Trainer API
         if torch.cuda.device_count() > 1:
             print(f"Training on {torch.cuda.device_count()} GPUs.")
-            self.trainer.args.device = 'cuda'
 
         self.trainer.train()
         self.trainer.save_model()
