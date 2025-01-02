@@ -26,7 +26,7 @@ def main():
     dataset_manager = DatasetManager()
     train_dataset = dataset_manager.load_dataset("marcinbrzezanski/flickr8k-pl", "train",preprocess_func)
     eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func)
-    num_epochs = 1
+    num_epochs = 3
     # Step 3: Initialize trainer
     trainer = Trainer(model, feature_extractor, num_epochs, train_dataset, eval_dataset, output_dir="./output")
     trainer.train()
