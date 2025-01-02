@@ -12,12 +12,9 @@ class Trainer:
             per_device_train_batch_size=24,
             per_device_eval_batch_size=24,
             output_dir=output_dir,
-            # Enable multi-GPU training
-            fp16=True,  # Use mixed precision for faster training
-            dataloader_num_workers=4,  # Number of CPU threads to use for data loading
-            # Automatically distribute across all available GPUs
-            deepspeed=None,  # Optional: Enable deepspeed for large scale distributed training
-            load_best_model_at_end=True,  # Always load the best model at the end of training
+            fp16=True,
+            dataloader_num_workers=4,
+            deepspeed=None
         )
 
         self.trainer = Seq2SeqTrainer(
