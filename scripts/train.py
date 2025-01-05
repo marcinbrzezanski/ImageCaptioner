@@ -24,8 +24,8 @@ def main():
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['image'])
         return model_inputs
     dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning-v3", "train",lambda x: x)
-    eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",lambda x: x)
+    train_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning-v3", "train",preprocess_func)
+    eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func) # todo preprocess data earlier to avoid preprocessing during training and use streaming dataset
     num_epochs = 1
     # Step 3: Initialize trainer
     trainer = Trainer(model, feature_extractor, num_epochs, train_dataset, eval_dataset, output_dir="./output")
