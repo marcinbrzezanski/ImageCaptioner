@@ -1,6 +1,5 @@
 import datasets
-from src.utils.logger import logger
-import tqdm
+from utils.logger import logger
 
 class DatasetManager:
     @staticmethod
