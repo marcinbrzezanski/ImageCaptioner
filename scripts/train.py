@@ -24,7 +24,7 @@ def main():
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['image'])
         return model_inputs
     dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.load_dataset("marcinbrzezanski/coco_captions_pl", "test",preprocess_func)
+    train_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning-v3", "test",preprocess_func)
     eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func)
     num_epochs = 1
     # Step 3: Initialize trainer
