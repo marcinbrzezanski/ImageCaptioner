@@ -12,7 +12,7 @@ def main():
 
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
-    decoder_model = "sdadas/polish-distilroberta"
+    decoder_model = "sdadas/polish-gpt2-small"
     model_obj = ImageCaptionerModel(encoder_model, decoder_model)
     model, tokenizer, feature_extractor = model_obj.get_model_components()
 
@@ -24,9 +24,9 @@ def main():
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['image'])
         return model_inputs
     dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning-v3", "train",preprocess_func)
-    eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func)
-    num_epochs = 3
+    train_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning-v3", "train",lambda x: x)
+    eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",lambda x: x)
+    num_epochs = 1
     # Step 3: Initialize trainer
     trainer = Trainer(model, feature_extractor, num_epochs, train_dataset, eval_dataset, output_dir="./output")
     trainer.train()
