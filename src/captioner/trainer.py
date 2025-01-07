@@ -3,14 +3,14 @@ from torch.utils.data import DataLoader
 import torch
 
 class Trainer:
-    def __init__(self, model, tokenizer, num_train_epochs, train_dataset, eval_dataset, output_dir):
+    def __init__(self, model, tokenizer, feature_extractor, num_train_epochs, train_dataset, eval_dataset, output_dir):
         self.output_dir = output_dir
         self.args = Seq2SeqTrainingArguments(
             predict_with_generate=True,
             eval_strategy='epoch',
             num_train_epochs=num_train_epochs,
-            per_device_train_batch_size=4,
-            per_device_eval_batch_size=4,
+            per_device_train_batch_size=16,
+            per_device_eval_batch_size=16,
             output_dir=output_dir,
             dataloader_num_workers=4,
             deepspeed=None
@@ -18,11 +18,12 @@ class Trainer:
 
         self.trainer = Seq2SeqTrainer(
             model=model,
-            tokenizer=tokenizer,
+            tokenizer=feature_extractor,
             args=self.args,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
-            data_collator=default_data_collator
+            data_collator=default_data_collator,
+            processing_class=[tokenizer, feature_extractor]
         )
 
     def train(self):
