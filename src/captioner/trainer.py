@@ -1,12 +1,14 @@
 from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer, default_data_collator
 from torch.utils.data import DataLoader
 import torch
+from utils.logger import logger
 
 class DataCollatorForStream:
     def __init__(self, data_preprocessor):
         self.data_preprocessor = data_preprocessor
 
     def __call__(self, features):
+        logger.info(features)
         texts = [f["text"] for f in features]
         images = [f["image"] for f in features]
         labels = [self.data_preprocessor.tokenize(txt, max_len=1024) for txt in texts]
