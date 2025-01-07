@@ -23,7 +23,7 @@ class Trainer:
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
             data_collator=default_data_collator,
-            processing_class=[tokenizer, feature_extractor]
+            #processing_class=[tokenizer, feature_extractor]
         )
 
     def train(self):
