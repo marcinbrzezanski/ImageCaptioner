@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 import torch
 
 class Trainer:
-    def __init__(self, model, tokenizer, feature_extractor, num_train_epochs, train_dataset, eval_dataset, output_dir):
+    def __init__(self, model, tokenizer, feature_extractor, num_train_epochs, train_dataset, eval_dataset, output_dir, max_steps=None):
         self.output_dir = output_dir
         self.args = Seq2SeqTrainingArguments(
             predict_with_generate=True,
@@ -13,7 +13,8 @@ class Trainer:
             per_device_eval_batch_size=16,
             output_dir=output_dir,
             dataloader_num_workers=4,
-            deepspeed=None
+            deepspeed=None,
+            max_steps=max_steps
         )
 
         self.trainer = Seq2SeqTrainer(
