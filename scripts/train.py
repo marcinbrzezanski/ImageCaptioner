@@ -24,7 +24,11 @@ def main():
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['image'])
         return model_inputs
     dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.stream_dataset("marcinbrzezanski/captioning-v5", "train",preprocess_func,num_samples=90000)
+    train_dataset = dataset_manager.stream_dataset(
+        "marcinbrzezanski/captioning-v5",
+        "train",
+        num_samples=90000
+    )
     eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func) # todo preprocess data earlier to avoid preprocessing during training and use streaming dataset
     num_epochs = 1
     max_steps = 5625
@@ -37,7 +41,8 @@ def main():
         train_dataset,
         eval_dataset,
         output_dir="./output",
-        max_steps=max_steps
+        max_steps=max_steps,
+        data_preprocessor=data_preprocessor
     )
     trainer.train()
     logger.info("Training Complete. Model saved to './output'")
