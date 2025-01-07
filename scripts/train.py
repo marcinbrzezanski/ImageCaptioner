@@ -25,7 +25,7 @@ def main():
         return model_inputs
     dataset_manager = DatasetManager()
     train_dataset = dataset_manager.stream_dataset(
-        "marcinbrzezanski/captioning-v5",
+        "marcinbrzezanski/captioning-v6",
         "train",
         num_samples=90000
     )

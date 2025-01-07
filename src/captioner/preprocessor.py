@@ -1,6 +1,6 @@
 from PIL import Image
 from transformers import AutoFeatureExtractor, AutoTokenizer
-from src.utils.logger import logger
+from utils.logger import logger
 
 class DataPreprocessor:
     def __init__(self, tokenizer, feature_extractor):
