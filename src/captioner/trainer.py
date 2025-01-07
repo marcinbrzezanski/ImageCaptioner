@@ -2,7 +2,6 @@ from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer, default_data_
 from torch.utils.data import DataLoader
 import torch
 from utils.logger import logger
-from torchdata.datapipes.iter import IterableWrapper
 
 class DataCollatorForStream:
     def __init__(self, data_preprocessor):
@@ -29,7 +28,7 @@ class Trainer:
             per_device_train_batch_size=16,
             per_device_eval_batch_size=16,
             output_dir=output_dir,
-            dataloader_num_workers=4,
+            dataloader_num_workers=0,
             deepspeed=None,
             max_steps=max_steps
         )
@@ -38,7 +37,7 @@ class Trainer:
             model=model,
             tokenizer=feature_extractor,
             args=self.args,
-            train_dataset=IterableWrapper(train_dataset),
+            train_dataset=train_dataset,
             eval_dataset=eval_dataset,
             data_collator=DataCollatorForStream(data_preprocessor)
         )
