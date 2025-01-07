@@ -1,22 +1,6 @@
 from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer, default_data_collator
 from torch.utils.data import DataLoader
 import torch
-from utils.logger import logger
-
-class DataCollatorForStream:
-    def __init__(self, data_preprocessor):
-        self.data_preprocessor = data_preprocessor
-
-    def __call__(self, features):
-        logger.info(features)
-        texts = [f["text"] for f in features]
-        images = [f["image"] for f in features]
-        labels = [self.data_preprocessor.tokenize(txt, max_len=1024) for txt in texts]
-        pixel_values = [self.data_preprocessor.extract_features(img) for img in images]
-        return {
-            "labels": labels,
-            "pixel_values": pixel_values
-        }
 
 class Trainer:
     def __init__(self, model, tokenizer, feature_extractor, num_train_epochs, train_dataset, eval_dataset, output_dir, max_steps=None, data_preprocessor=None):
@@ -28,7 +12,7 @@ class Trainer:
             per_device_train_batch_size=16,
             per_device_eval_batch_size=16,
             output_dir=output_dir,
-            dataloader_num_workers=0,
+            dataloader_num_workers=4,
             deepspeed=None,
             max_steps=max_steps
         )
@@ -39,7 +23,7 @@ class Trainer:
             args=self.args,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
-            data_collator=DataCollatorForStream(data_preprocessor)
+            data_collator=default_data_collator
         )
 
     def train(self):
