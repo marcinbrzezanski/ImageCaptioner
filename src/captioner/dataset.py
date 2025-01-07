@@ -1,5 +1,5 @@
 import datasets
-from utils.logger import logger
+from src.utils.logger import logger
 
 class DatasetManager:
     @staticmethod
