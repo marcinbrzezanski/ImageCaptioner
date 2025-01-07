@@ -49,7 +49,7 @@ def main():
     # Step 2: Load the dataset from disk
     try:
         #dataset = load_dataset_from_disk(local_save_path)
-        dataset = load_dataset_from_hub("marcinbrzezanski/captioning-v3", data_preprocessor)
+        dataset = load_dataset_from_hub("marcinbrzezanski/captioning-v5", data_preprocessor)
     except FileNotFoundError as e:
         print(e)
         return
@@ -58,7 +58,7 @@ def main():
     os.makedirs(local_save_path, exist_ok=True)
     dataset.save_to_disk(local_save_path)
     # Step 3: Define the repository details for Hugging Face Hub
-    repo_id = "marcinbrzezanski/captioning-v4"  # Update the repo ID
+    repo_id = "marcinbrzezanski/captioning-v6"  # Update the repo ID
     token = "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"  # Your Hugging Face token
 
     # Step 4: Push the dataset to Hugging Face Hub
