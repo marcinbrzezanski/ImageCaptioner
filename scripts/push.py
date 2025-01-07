@@ -59,7 +59,7 @@ def main():
     dataset.save_to_disk(local_save_path)
     # Step 3: Define the repository details for Hugging Face Hub
     repo_id = "marcinbrzezanski/captioning-v6"  # Update the repo ID
-    token = "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"  # Your Hugging Face token
+    token = ""  # Your Hugging Face token
 
     # Step 4: Push the dataset to Hugging Face Hub
     push_dataset_to_hub(dataset, repo_id, token)
