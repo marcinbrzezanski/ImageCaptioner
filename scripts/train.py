@@ -27,11 +27,11 @@ def main():
     train_dataset = dataset_manager.stream_dataset(
         "marcinbrzezanski/captioning-v6",
         "train",
-        num_samples=90000
+        num_samples=25000
     )
     eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func) # todo preprocess data earlier to avoid preprocessing during training and use streaming dataset
     num_epochs = 1
-    max_steps = 90000 / 4
+    max_steps = 25000 / 4
     # Step 3: Initialize trainer
     trainer = Trainer(
         model,
