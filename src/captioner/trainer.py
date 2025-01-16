@@ -1,6 +1,7 @@
 import torch
 from accelerate import Accelerator
 from tqdm import tqdm
+import os
 
 class Trainer:
     def __init__(self, model, optimizer, scheduler, accelerator = None, num_epochs=3):
@@ -36,7 +37,8 @@ class Trainer:
             
             self.accelerator.wait_for_everyone()
             if self.accelerator.is_main_process:
-                checkpoint_dir = f"/checkpoint-{epoch+1}"
+                current_dir = os.getcwd()
+                checkpoint_dir = os.path.join(current_dir, f"checkpoint-{epoch+1}")
                 self.model.save_pretrained(checkpoint_dir)
-                
+
                 print(f"Checkpoint saved to {checkpoint_dir}")
