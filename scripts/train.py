@@ -30,7 +30,7 @@ def main():
     train_dataloader = dataset_manager.stream_dataset(
         dataset_name = "marcinbrzezanski/captioning-v6",
         split = "train",
-        num_samples=25000
+        num_samples=25
     )
     #eval_dataloader = dataset_manager.load_dataset(
     #    "marcinbrzezanski/captioning", 
@@ -39,7 +39,7 @@ def main():
     
     # Step 3: Initialize optimizer and scheduler
     optimizer = AdamW(model.parameters(), lr=5e-5)
-    num_training_steps = 25000 * 1 // 4
+    num_training_steps = 25 * 1 // 4
     scheduler = get_scheduler(
         "linear",
         optimizer=optimizer,

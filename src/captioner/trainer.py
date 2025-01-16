@@ -17,7 +17,7 @@ class Trainer:
 
         for epoch in range(num_epochs):
             self.model.train()
-            total_steps = 25000 * 1 // 4
+            total_steps = 25 * 1 // 4
             progress_bar = tqdm(
                 total=total_steps,
                 desc=f"Epoch {epoch+1}",
@@ -35,6 +35,9 @@ class Trainer:
                 progress_bar.set_postfix({"loss": loss.item()})
             
             self.accelerator.wait_for_everyone()
-            self.accelerator.save(
-                self.model.state_dict(), f"checkpoint-{epoch+1}.pt"
-            )
+            if self.accelerator.is_main_process:
+                checkpoint_dir = f"{self.output_dir}/checkpoint-{epoch+1}"
+                self.model.save_pretrained(checkpoint_dir)
+                self.tokenizer.save_pretrained(checkpoint_dir)
+                
+                print(f"Checkpoint saved to {checkpoint_dir}")
