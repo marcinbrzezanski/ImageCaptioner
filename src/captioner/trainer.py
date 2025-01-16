@@ -36,7 +36,7 @@ class Trainer:
             
             self.accelerator.wait_for_everyone()
             if self.accelerator.is_main_process:
-                checkpoint_dir = f"{self.output_dir}/checkpoint-{epoch+1}"
+                checkpoint_dir = f"/checkpoint-{epoch+1}"
                 self.model.save_pretrained(checkpoint_dir)
                 self.tokenizer.save_pretrained(checkpoint_dir)
                 
