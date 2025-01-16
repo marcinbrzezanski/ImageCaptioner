@@ -26,7 +26,7 @@ def main():
         "labels": data_preprocessor.tokenize(example["text"], max_len=1024),
         "pixel_values": data_preprocessor.extract_features(example["image"]),
     }
-    dataset_manager = DatasetManager(batch_size=4)
+    dataset_manager = DatasetManager(batch_size=6)
     train_dataloader = dataset_manager.stream_dataset(
         dataset_name = "marcinbrzezanski/captioning-v6",
         split = "train",
@@ -39,7 +39,7 @@ def main():
     
     # Step 3: Initialize optimizer and scheduler
     optimizer = AdamW(model.parameters(), lr=5e-5)
-    num_training_steps = 25000 * 3
+    num_training_steps = 25000 * 1
     scheduler = get_scheduler(
         "linear",
         optimizer=optimizer,
@@ -49,7 +49,7 @@ def main():
 
     # Step 4: Initialize Trainer
     trainer = Trainer(model, optimizer, scheduler, accelerator)
-    trainer.train(train_dataloader, num_epochs=3)
+    trainer.train(train_dataloader, num_epochs=1)
   
 
 if __name__ == "__main__":
