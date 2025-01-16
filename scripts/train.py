@@ -20,7 +20,7 @@ def main():
     data_preprocessor = DataPreprocessor(tokenizer, feature_extractor)
     def preprocess_func(example):
         model_inputs = {}
-        model_inputs['labels'] = data_preprocessor.tokenize(example["text"], max_len=1024)
+        model_inputs['labels'] = data_preprocessor.tokenize(example["text"], max_len=900)
         model_inputs['pixel_values'] = data_preprocessor.extract_features(example['image'])
         return model_inputs
     dataset_manager = DatasetManager()
