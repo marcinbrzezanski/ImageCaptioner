@@ -17,10 +17,16 @@ class Trainer:
 
         for epoch in range(num_epochs):
             self.model.train()
-            progress_bar = tqdm(train_dataloader, desc=f"Epoch {epoch+1}")
-            for batch in progress_bar:
+            total_steps = len(train_dataloader)
+            progress_bar = tqdm(
+                total=total_steps,
+                desc=f"Epoch {epoch+1}",
+                disable=not self.accelerator.is_local_main_process
+            )
+            for batch in train_dataloader:
                 outputs = self.model(**batch)
                 loss = outputs.loss
+                progress_bar.update(1)
                 self.accelerator.backward(loss)
 
                 self.optimizer.step()
