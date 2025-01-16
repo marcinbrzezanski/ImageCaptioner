@@ -38,6 +38,5 @@ class Trainer:
             if self.accelerator.is_main_process:
                 checkpoint_dir = f"/checkpoint-{epoch+1}"
                 self.model.save_pretrained(checkpoint_dir)
-                self.tokenizer.save_pretrained(checkpoint_dir)
                 
                 print(f"Checkpoint saved to {checkpoint_dir}")
