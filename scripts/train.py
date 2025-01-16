@@ -1,15 +1,13 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+from transformers import AdamW, get_scheduler
 from captioner.model import ImageCaptionerModel
 from captioner.preprocessor import DataPreprocessor
-from captioner.dataset import DatasetManager
 from captioner.trainer import Trainer
 from utils.logger import logger
 
 def main():
     logger.info("Initializing Image Captioning Training Pipeline")
-
+    accelerator = Accelerator(fp16=torch.cuda.is_available())
+    
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
     decoder_model = "sdadas/polish-gpt2-small"
@@ -18,34 +16,35 @@ def main():
 
     # Step 2: Load and preprocess dataset
     data_preprocessor = DataPreprocessor(tokenizer, feature_extractor)
-    def preprocess_func(example):
-        model_inputs = {}
-        model_inputs['labels'] = data_preprocessor.tokenize(example["text"], max_len=900)
-        model_inputs['pixel_values'] = data_preprocessor.extract_features(example['image'])
-        return model_inputs
-    dataset_manager = DatasetManager()
-    train_dataset = dataset_manager.stream_dataset(
+    preprocess_fn = lambda example: {
+        "labels": data_preprocessor.tokenize(example["text"], max_len=1024),
+        "pixel_values": data_preprocessor.extract_features(example["image"]),
+    }
+    dataset_manager = DatasetManager(batch_size=8)
+    train_dataloader = dataset_manager.stream_dataset(
         "marcinbrzezanski/captioning-v6",
         "train",
         num_samples=25000
     )
-    eval_dataset = dataset_manager.load_dataset("marcinbrzezanski/captioning", "test",preprocess_func) # todo preprocess data earlier to avoid preprocessing during training and use streaming dataset
-    num_epochs = 1
-    max_steps = 25000 / 4
-    # Step 3: Initialize trainer
-    trainer = Trainer(
-        model,
-        tokenizer,
-        feature_extractor,
-        num_epochs,
-        train_dataset,
-        eval_dataset,
-        output_dir="./output",
-        max_steps=max_steps,
-        data_preprocessor=data_preprocessor
+    #eval_dataloader = dataset_manager.load_dataset(
+    #    "marcinbrzezanski/captioning", 
+    #    "test",
+    #   preprocess_fn)
+    
+    # Step 3: Initialize optimizer and scheduler
+    optimizer = AdamW(model.parameters(), lr=5e-5)
+    num_training_steps = len(train_dataloader) * Trainer.num_epochs
+    scheduler = get_scheduler(
+        "linear",
+        optimizer=optimizer,
+        num_warmup_steps=0,
+        num_training_steps=num_training_steps
     )
-    trainer.train()
-    logger.info("Training Complete. Model saved to './output'")
+
+    # Step 4: Initialize Trainer
+    trainer = Trainer(model, optimizer, scheduler, accelerator)
+    trainer.train(train_dataloader, num_epochs=3)
+  
 
 if __name__ == "__main__":
     main()
