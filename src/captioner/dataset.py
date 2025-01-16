@@ -8,14 +8,14 @@ class DatasetManager:
         self.batch_size = batch_size
         self.num_workers = num_workers
     @staticmethod
-    def load_dataset(self, dataset_name, split, preprocess_func):
+    def load_dataset(dataset_name, split, preprocess_func):
         ds = datasets.load_dataset(dataset_name,split=split)
         ds = ds.map(
             function=preprocess_func,
             batched=True)
         return DataLoader(ds, batch_size=self.batch_size, collate_fn=default_data_collator, num_workers=self.num_workers)
     @staticmethod
-    def stream_dataset(self, dataset_name, split,num_samples=1):
+    def stream_dataset(dataset_name, split,num_samples=1):
         ds = datasets.load_dataset(dataset_name,split=split,streaming=True)
         ds.select_columns(["labels","pixel_values"])
         ds  = ds.take(num_samples)
