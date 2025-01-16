@@ -1,8 +1,9 @@
 from transformers import AdamW, get_scheduler
-from src.captioner.model import ImageCaptionerModel
-from src.captioner.preprocessor import DataPreprocessor
-from src.captioner.trainer import Trainer
-from src.utils.logger import logger
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+from captioner.model import ImageCaptionerModel
+from captioner.preprocessor import DataPreprocessor
+from captioner.trainer import Trainer
+from utils.logger import logger
 
 def main():
     logger.info("Initializing Image Captioning Training Pipeline")
