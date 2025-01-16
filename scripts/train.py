@@ -12,7 +12,7 @@ import torch
 
 def main():
     logger.info("Initializing Image Captioning Training Pipeline")
-    accelerator = Accelerator(fp16=torch.cuda.is_available())
+    accelerator = Accelerator(mixed_precision="fp16")
     
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
