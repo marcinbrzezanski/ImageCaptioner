@@ -1,5 +1,6 @@
 from transformers import AdamW, get_scheduler
 import sys
+import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 from captioner.model import ImageCaptionerModel
 from captioner.preprocessor import DataPreprocessor
