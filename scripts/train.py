@@ -1,8 +1,8 @@
 from transformers import AdamW, get_scheduler
-from captioner.model import ImageCaptionerModel
-from captioner.preprocessor import DataPreprocessor
-from captioner.trainer import Trainer
-from utils.logger import logger
+from src.captioner.model import ImageCaptionerModel
+from src.captioner.preprocessor import DataPreprocessor
+from src.captioner.trainer import Trainer
+from src.utils.logger import logger
 
 def main():
     logger.info("Initializing Image Captioning Training Pipeline")
