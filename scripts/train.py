@@ -39,7 +39,7 @@ def main():
     
     # Step 3: Initialize optimizer and scheduler
     optimizer = AdamW(model.parameters(), lr=5e-5)
-    num_training_steps = 25000 * 1
+    num_training_steps = 25000 * 1 // 4
     scheduler = get_scheduler(
         "linear",
         optimizer=optimizer,
