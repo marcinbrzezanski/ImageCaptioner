@@ -28,8 +28,8 @@ def main():
     }
     dataset_manager = DatasetManager(batch_size=8)
     train_dataloader = dataset_manager.stream_dataset(
-        "marcinbrzezanski/captioning-v6",
-        "train",
+        dataset_name = "marcinbrzezanski/captioning-v6",
+        split = "train",
         num_samples=25000
     )
     #eval_dataloader = dataset_manager.load_dataset(
