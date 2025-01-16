@@ -26,7 +26,7 @@ def main():
         "labels": data_preprocessor.tokenize(example["text"], max_len=1024),
         "pixel_values": data_preprocessor.extract_features(example["image"]),
     }
-    dataset_manager = DatasetManager(batch_size=6)
+    dataset_manager = DatasetManager(batch_size=4)
     train_dataloader = dataset_manager.stream_dataset(
         dataset_name = "marcinbrzezanski/captioning-v6",
         split = "train",
