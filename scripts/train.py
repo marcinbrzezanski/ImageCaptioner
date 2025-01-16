@@ -6,6 +6,7 @@ from captioner.model import ImageCaptionerModel
 from captioner.preprocessor import DataPreprocessor
 from captioner.trainer import Trainer
 from utils.logger import logger
+from accelerate import Accelerator
 
 def main():
     logger.info("Initializing Image Captioning Training Pipeline")
