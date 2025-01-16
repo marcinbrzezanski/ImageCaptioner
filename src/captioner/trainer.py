@@ -7,7 +7,7 @@ class Trainer:
         self.model = model
         self.optimizer = optimizer
         self.scheduler = scheduler
-        self.accelerator = accelerator or Accelerator(fp16=torch.cuda.is_available())
+        self.accelerator = accelerator or Accelerator(mixed_precision="fp16")
         self.num_epochs = num_epochs
 
     def train(self, train_dataloader, num_epochs):
