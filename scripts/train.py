@@ -6,6 +6,7 @@ from captioner.model import ImageCaptionerModel
 from captioner.preprocessor import DataPreprocessor
 from captioner.trainer import Trainer
 from utils.logger import logger
+from captioner.dataset import DatasetManager
 from accelerate import Accelerator
 import torch
 
