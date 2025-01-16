@@ -15,6 +15,6 @@ class DatasetManager:
         return DataLoader(ds, batch_size=self.batch_size, collate_fn=default_data_collator, num_workers=self.num_workers)
     def stream_dataset(self, dataset_name, split,num_samples=1):
         ds = datasets.load_dataset(dataset_name,split=split,streaming=True)
-        ds.select_columns(["labels","pixel_values"])
+        ds = ds.remove_columns([col for col in ds.column_names if col not in ["labels", "pixel_values"]])
         ds  = ds.take(num_samples)
         return DataLoader(ds, batch_size=self.batch_size, collate_fn=default_data_collator, num_workers=self.num_workers)
