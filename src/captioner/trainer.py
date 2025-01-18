@@ -18,7 +18,7 @@ class Trainer:
 
         for epoch in range(num_epochs):
             self.model.train()
-            total_steps = 25000 * 1 // 5
+            total_steps = 95000 * 1 // 5
             progress_bar = tqdm(
                 total=total_steps,
                 desc=f"Epoch {epoch+1}",
