@@ -18,7 +18,7 @@ def main():
     encoder_model = "marcinbrzezanski/vit-gpt2-polish-captionier-v1"
     decoder_model = "marcinbrzezanski/vit-gpt2-polish-captionier-v1"
     model_obj = ImageCaptionerModel(encoder_model, decoder_model)
-    model, tokenizer, feature_extractor = model_obj.get_model_components()
+    model = model_obj.get_model_components()
 
     # Step 2: Load and preprocess dataset
     data_preprocessor = DataPreprocessor(tokenizer, feature_extractor)
