@@ -30,7 +30,7 @@ def main():
     train_dataloader = dataset_manager.load_dataset(
         dataset_name = "marcinbrzezanski/captioning-final-100k",
         split = "train",
-        num_samples=95000
+        preprocess_func = preprocess_fn
     )
     #eval_dataloader = dataset_manager.load_dataset(
     #    "marcinbrzezanski/captioning", 
