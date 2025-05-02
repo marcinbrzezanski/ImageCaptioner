@@ -2,7 +2,7 @@ from transformers import VisionEncoderDecoderModel, AutoTokenizer, ViTImageProce
 
 class ImageCaptionerModel:
     def __init__(self, encoder_model: str, decoder_model: str):
-        self.model = VisionEncoderDecoderModel.from_pretrained(encoder_model)
+        self.model = VisionEncoderDecoderModel.from_encoder_decoder_pretrained(encoder_model, decoder_model)
         self.tokenizer = AutoTokenizer.from_pretrained(decoder_model)
         self.feature_extractor = ViTImageProcessor.from_pretrained(encoder_model)
 
