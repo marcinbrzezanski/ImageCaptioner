@@ -27,7 +27,7 @@ def main():
         "pixel_values": data_preprocessor.extract_features(example["processed_image"]),
     }
     dataset_manager = DatasetManager(batch_size=5)
-    train_dataloader = dataset_manager.stream_dataset(
+    train_dataloader = dataset_manager.load_dataset(
         dataset_name = "marcinbrzezanski/captioning-final-100k",
         split = "train",
         num_samples=95000
