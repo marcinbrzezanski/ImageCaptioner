@@ -17,7 +17,7 @@ class DataPreprocessor:
         for image in image_paths:
             try:
                 if isinstance(image, list):  # Assuming image is a path or URL
-                    img = Image.open(io.BytesIO(image))
+                    img = Image.open(io.BytesIO(image)).convert("RGB")
                 else:  # If image is already a PIL image
                     img = image
                 images.append(img)
