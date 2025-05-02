@@ -18,17 +18,17 @@ def main():
     encoder_model = "marcinbrzezanski/vit-gpt2-polish-captionier-v1"
     decoder_model = "marcinbrzezanski/vit-gpt2-polish-captionier-v1"
     model_obj = ImageCaptionerModel(encoder_model, decoder_model)
-    model = model_obj.get_model_components()
+    model, tokenizer, feature_extractor = model_obj.get_model_components()
 
     # Step 2: Load and preprocess dataset
     data_preprocessor = DataPreprocessor(tokenizer, feature_extractor)
     preprocess_fn = lambda example: {
-        "labels": data_preprocessor.tokenize(example["text"], max_len=1024),
-        "pixel_values": data_preprocessor.extract_features(example["image"]),
+        "labels": data_preprocessor.tokenize(example["translated_text"], max_len=512),
+        "pixel_values": data_preprocessor.extract_features(example["processed_image"]),
     }
     dataset_manager = DatasetManager(batch_size=5)
     train_dataloader = dataset_manager.stream_dataset(
-        dataset_name = "marcinbrzezanski/captioning-v6",
+        dataset_name = "marcinbrzezanski/captioning-final-100k",
         split = "train",
         num_samples=95000
     )
