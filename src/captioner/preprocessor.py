@@ -1,6 +1,7 @@
 from PIL import Image
 from transformers import AutoFeatureExtractor, AutoTokenizer
 from utils.logger import logger
+import io
 
 class DataPreprocessor:
     def __init__(self, tokenizer, feature_extractor):
@@ -15,8 +16,8 @@ class DataPreprocessor:
         to_keep = []
         for image in image_paths:
             try:
-                if isinstance(image, str):  # Assuming image is a path or URL
-                    img = Image.open(image)
+                if isinstance(image, list):  # Assuming image is a path or URL
+                    img = Image.open(io.BytesIO(image))
                 else:  # If image is already a PIL image
                     img = image
                 images.append(img)
