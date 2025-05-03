@@ -28,7 +28,7 @@ def main():
     }
     dataset_manager = DatasetManager(batch_size=5)
     train_dataloader = dataset_manager.load_dataset(
-        dataset_name = "marcinbrzezanski/captioning-final-100k",
+        dataset_name = "marcinbrzezanski/captioning-final-100k-v2",
         split = "train",
         preprocess_func = preprocess_fn
     )
