@@ -22,15 +22,14 @@ def main():
 
     # Step 2: Load and preprocess dataset
     data_preprocessor = DataPreprocessor(tokenizer, feature_extractor)
-    preprocess_fn = lambda example: {
-        "labels": data_preprocessor.tokenize(example["translated_text"], max_len=512),
-        "pixel_values": data_preprocessor.extract_features(example["processed_image"]),
-    }
+    #preprocess_fn = lambda example: {
+    #    "labels": data_preprocessor.tokenize(example["translated_text"], max_len=512),
+     #   "pixel_values": data_preprocessor.extract_features(example["processed_image"]),
+    #}
     dataset_manager = DatasetManager(batch_size=5)
     train_dataloader = dataset_manager.load_dataset(
-        dataset_name = "marcinbrzezanski/captioning-final-100k-v3",
+        dataset_name = "marcinbrzezanski/captioning-final-100k-v3-features",
         split = "train",
-        preprocess_func = preprocess_fn
     )
     #eval_dataloader = dataset_manager.load_dataset(
     #    "marcinbrzezanski/captioning", 
