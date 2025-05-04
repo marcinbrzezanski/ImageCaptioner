@@ -26,7 +26,7 @@ def main():
     #    "labels": data_preprocessor.tokenize(example["translated_text"], max_len=512),
      #   "pixel_values": data_preprocessor.extract_features(example["processed_image"]),
     #}
-    dataset_manager = DatasetManager(batch_size=5)
+    dataset_manager = DatasetManager(batch_size=8)
     train_dataloader = dataset_manager.load_dataset(
         dataset_name = "marcinbrzezanski/captioning-final-100k-v3-features",
         split = "train",
@@ -44,6 +44,9 @@ def main():
         optimizer=optimizer,
         num_warmup_steps=0,
         num_training_steps=num_training_steps
+    )
+    model, train_dataloader, optimizer, scheduler = accelerator.prepare(
+        model, train_dataloader, optimizer, scheduler
     )
 
     # Step 4: Initialize Trainer
