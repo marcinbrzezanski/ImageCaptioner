@@ -11,7 +11,7 @@ from accelerate import Accelerator
 from accelerate.utils import DistributedDataParallelKwargs
 import torch
 BATCH_SIZE = 10
-NUM_EPOCHS = 1
+NUM_EPOCHS = 2
 
 def main(args=None):
     logger.info("Initializing Image Captioning Training Pipeline")
