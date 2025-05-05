@@ -8,13 +8,15 @@ from captioner.trainer import Trainer
 from utils.logger import logger
 from captioner.dataset import DatasetManager
 from accelerate import Accelerator
+from accelerate.utils import DistributedDataParallelKwargs
 import torch
 BATCH_SIZE = 8
 NUM_EPOCHS = 1
 
 def main(args=None):
     logger.info("Initializing Image Captioning Training Pipeline")
-    accelerator = Accelerator(mixed_precision="fp16")
+    ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
+    accelerator = Accelerator(mixed_precision="fp16", kwargs_handlers=[ddp_kwargs])
     
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
