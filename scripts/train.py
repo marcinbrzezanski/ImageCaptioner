@@ -10,7 +10,7 @@ from captioner.dataset import DatasetManager
 from accelerate import Accelerator
 from accelerate.utils import DistributedDataParallelKwargs
 import torch
-BATCH_SIZE = 12
+BATCH_SIZE = 10
 NUM_EPOCHS = 1
 
 def main(args=None):
