@@ -9,8 +9,10 @@ from utils.logger import logger
 from captioner.dataset import DatasetManager
 from accelerate import Accelerator
 import torch
+BATCH_SIZE = 8
+NUM_EPOCHS = 1
 
-def main():
+def main(args=None):
     logger.info("Initializing Image Captioning Training Pipeline")
     accelerator = Accelerator(mixed_precision="fp16")
     
@@ -26,7 +28,7 @@ def main():
     #    "labels": data_preprocessor.tokenize(example["translated_text"], max_len=512),
      #   "pixel_values": data_preprocessor.extract_features(example["processed_image"]),
     #}
-    dataset_manager = DatasetManager(batch_size=8)
+    dataset_manager = DatasetManager(batch_size=BATCH_SIZE)
     train_dataloader = dataset_manager.load_dataset(
         dataset_name = "marcinbrzezanski/captioning-final-100k-v3-features",
         split = "train",
@@ -38,7 +40,7 @@ def main():
     
     # Step 3: Initialize optimizer and scheduler
     optimizer = AdamW(model.parameters(), lr=5e-5)
-    num_training_steps = 95000 * 1 // 5
+    num_training_steps = 95000 * NUM_EPOCHS // BATCH_SIZE
     scheduler = get_scheduler(
         "linear",
         optimizer=optimizer,
@@ -51,8 +53,9 @@ def main():
 
     # Step 4: Initialize Trainer
     trainer = Trainer(model, optimizer, scheduler, accelerator)
-    trainer.train(train_dataloader, num_epochs=1)
+    trainer.train(train_dataloader, num_epochs=NUM_EPOCHS)
   
 
 if __name__ == "__main__":
-    main()
+    from accelerate import notebook_launcher
+    notebook_launcher(main, num_processes=2)
