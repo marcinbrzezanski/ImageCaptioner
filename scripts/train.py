@@ -15,8 +15,8 @@ NUM_EPOCHS = 1
 
 def main(args=None):
     logger.info("Initializing Image Captioning Training Pipeline")
-    ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
-    accelerator = Accelerator(mixed_precision="fp16", kwargs_handlers=[ddp_kwargs])
+    #ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
+    accelerator = Accelerator(mixed_precision="fp16")
     
     # Step 1: Initialize model
     encoder_model = "google/vit-base-patch16-224-in21k"
@@ -60,4 +60,4 @@ def main(args=None):
 
 if __name__ == "__main__":
     from accelerate import notebook_launcher
-    notebook_launcher(main, num_processes=2)
+    notebook_launcher(main, num_processes=1)
