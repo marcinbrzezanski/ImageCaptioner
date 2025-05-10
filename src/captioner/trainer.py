@@ -4,12 +4,13 @@ from tqdm import tqdm
 import os
 
 class Trainer:
-    def __init__(self, model, optimizer, scheduler, accelerator = None, num_epochs=3):
+    def __init__(self, model, optimizer, scheduler, accelerator = None, num_epochs=3, batch_size=10):
         self.model = model
         self.optimizer = optimizer
         self.scheduler = scheduler
         self.accelerator = accelerator or Accelerator(mixed_precision="fp16")
         self.num_epochs = num_epochs
+        self.batch_size = batch_size
 
     def train(self, train_dataloader, num_epochs):
         self.model, self.optimizer, train_dataloader= self.accelerator.prepare(
@@ -18,7 +19,7 @@ class Trainer:
 
         for epoch in range(num_epochs):
             self.model.train()
-            total_steps = 95000 * 1 // 5
+            total_steps = 95000 * self.num_epochs // self.batch_size
             progress_bar = tqdm(
                 total=total_steps,
                 desc=f"Epoch {epoch+1}",
